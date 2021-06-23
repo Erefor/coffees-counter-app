@@ -1,4 +1,3 @@
-import 'package:coffe_counter_app/CoffeesProvider.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,12 +8,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Coffees _coffees = Coffees.coffees;
-  int _totalCoffees = 0;
+
   @override
   void initState() {
-    _coffees.getCoffeesCounter();
-    _totalCoffees = _coffees.totalCoffees;
     super.initState();
     setState(() {});
   }
@@ -29,7 +25,7 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             SizedBox(width: double.infinity),
             Icon(Icons.coffee,size: 80,color: Colors.white,),
-            Text(_totalCoffees.toString(),
+            Text(8.toString(),
             style: TextStyle(color: Colors.white),)
           ],
         ),
