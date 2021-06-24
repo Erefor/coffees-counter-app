@@ -1,8 +1,8 @@
 import 'dart:io';
+import 'package:coffe_counter_app/CoffeeModel.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:flutter/material.dart';
 
 class DBProvider{
   static late Database _database;
@@ -28,10 +28,20 @@ class DBProvider{
           id INTEGER PRIMARY KEY,
           coffeeInt INTEGER,
           size TEXT,
-          dat, TEXT
+          date, TEXT
         )
         ''');
       }
     );
+  }
+  Future<int> newCoffee(Coffee coffee)async{
+    final db = await database;
+    final res = await db.insert('CoffeesDB', coffee.toJson());
+    return res;
+  }
+  Future<List> getAllCoffees()async{
+    final db = await database;
+    final response = await db.query('Coffees');
+    return response.isEmpty ? response.map((coffee) => Coffee.fromJson(coffee)).toList() : [];
   }
 }
