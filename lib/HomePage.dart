@@ -1,8 +1,9 @@
-import 'package:coffe_counter_app/CoffeeModel.dart';
 import 'package:coffe_counter_app/CoffeesProvider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+
+import 'CoffeeModel.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -68,7 +69,7 @@ class __CoffeeSizeButtonsRowState extends State<_CoffeeSizeButtonsRow> {
           onPressed: () {
             String date = _getStringdate();
             Coffee newCoffee =
-                Coffee(coffeeInt: 1, size: valueItem, date: date, id: 25);
+                Coffee(coffeeInt: 1, size: valueItem, date: date);
             coffeeProvider.addCoffeeRecord(newCoffee);
             //coffeeProvider.killDB();
           },

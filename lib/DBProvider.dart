@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:coffe_counter_app/CoffeeModel.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -33,15 +34,8 @@ class DBProvider {
   }
 
   Future<int> newCoffee(Coffee coffee) async {
-    final coffeeId = coffee.id;
-    final coffeeInt = coffee.coffeeInt;
-    final cooffeeSize = coffee.size;
-    final coffeeDate = coffee.date;
     final db = await database;
-    final res = await db.rawInsert('''
-      INSERT INTO Coffees(id, entero, size, date)
-        VALUES('$coffeeId' , '$coffeeInt', '$cooffeeSize', '$coffeeDate')
-    ''');
+    final res = await db.insert('Coffees', coffee.toJson());
     return res;
   }
 
