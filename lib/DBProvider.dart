@@ -5,14 +5,14 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DBProvider{
-  static late Database _database;
+  static Database? _database;
   static final DBProvider db = DBProvider._();
   DBProvider._();
 
   Future<Database> get database async{
-    if(_database != null) return _database;
+    if(_database != null) return _database!;
     _database = await initDB();
-    return _database;
+    return _database!;
   }
 
   Future<Database> initDB()async{
@@ -26,7 +26,7 @@ class DBProvider{
         await db.execute('''
         CREATE TABLE Coffees(
           id INTEGER PRIMARY KEY,
-          coffeeInt INTEGER,
+          coffee Int INTEGER,
           size TEXT,
           date, TEXT
         )
