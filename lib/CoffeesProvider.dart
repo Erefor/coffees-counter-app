@@ -11,6 +11,11 @@ class CoffeesProvider with ChangeNotifier{
     newCoffee.id = id;
     _coffees.add(newCoffee);
     DBProvider.db.newCoffee(newCoffee);
+    getCoffees();
     notifyListeners();
+  }
+  void getCoffees()async{
+     this._coffees = await DBProvider.db.getAllCoffees();
+     notifyListeners();
   }
 }
