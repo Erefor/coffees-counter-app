@@ -4,44 +4,59 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-class DBProvider{
+class DBProvider {
   static Database? _database;
   static final DBProvider db = DBProvider._();
   DBProvider._();
 
-  Future<Database> get database async{
-    if(_database != null) return _database!;
+  Future<Database> get database async {
+    if (_database != null) return _database!;
     _database = await initDB();
     return _database!;
   }
 
-  Future<Database> initDB()async{
+  Future<Database> initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    final path = join(documentsDirectory.path,'CoffeesDB.db');
-    return await openDatabase(
-      path,
-      version: 1,
-      onOpen: (db){},
-      onCreate: (Database db , int version)async{
-        await db.execute('''
+    final path = join(documentsDirectory.path, 'CoffeesDB.db');
+    print(path);
+    return await openDatabase(path, version: 1, onOpen: (db) {},
+        onCreate: (Database db, int version) async {
+      await db.execute('''
         CREATE TABLE Coffees(
           id INTEGER PRIMARY KEY,
-          coffee Int INTEGER,
+          entero INTEGER,
           size TEXT,
-          date, TEXT
+          date TEXT
         )
         ''');
-      }
-    );
+    });
   }
-  Future<int> newCoffee(Coffee coffee)async{
+
+  Future<int> newCoffee(Coffee coffee) async {
+    final coffeeId = coffee.id;
+    final coffeeInt = coffee.coffeeInt;
+    final cooffeeSize = coffee.size;
+    final coffeeDate = coffee.date;
     final db = await database;
-    final res = await db.insert('CoffeesDB', coffee.toJson());
+    final res = await db.rawInsert('''
+      INSERT INTO Coffees(id, entero, size, date)
+        VALUES('$coffeeId' , '$coffeeInt', '$cooffeeSize', '$coffeeDate')
+    ''');
     return res;
   }
-  Future<List<Coffee>> getAllCoffees()async{
+
+  Future<List<Coffee>> getAllCoffees() async {
     final db = await database;
     final response = await db.query('Coffees');
-    return response.isEmpty ? response.map((coffee) => Coffee.fromJson(coffee)).toList() : [];
+    return response.isEmpty
+        ? response.map((coffee) => Coffee.fromJson(coffee)).toList()
+        : [];
+  }
+
+  void killDataBase() async {
+    final db = await database;
+    final resp = await db.rawDelete('''DELETE FROM Coffees''');
+    print(resp);
+    print('Coffees Table deleted');
   }
 }

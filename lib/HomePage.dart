@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
-
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,9 @@ class HomePage extends StatelessWidget {
               color: Colors.white,
             ),
             Text(
-              coffeeProvider.coffees.length == 0 ? 'No hay datos' : coffeeProvider.coffees.length.toString(),
+              coffeeProvider.coffees.length == 0
+                  ? 'No hay datos'
+                  : coffeeProvider.coffees.length.toString(),
               style: TextStyle(color: Colors.white),
             ),
             _CoffeeSizeButtonsRow()
@@ -60,11 +61,16 @@ class __CoffeeSizeButtonsRowState extends State<_CoffeeSizeButtonsRow> {
         ),
         FloatingActionButton(
           backgroundColor: Colors.white,
-          child: Icon(Icons.plus_one,color: Colors.brown,),
-          onPressed: (){
+          child: Icon(
+            Icons.plus_one,
+            color: Colors.purple,
+          ),
+          onPressed: () {
             String date = _getStringdate();
-            Coffee newCoffee = Coffee(coffeeInt: 1,size: valueItem,date: date);
+            Coffee newCoffee =
+                Coffee(coffeeInt: 1, size: valueItem, date: date, id: 25);
             coffeeProvider.addCoffeeRecord(newCoffee);
+            //coffeeProvider.killDB();
           },
         )
       ],
