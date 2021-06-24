@@ -2,13 +2,13 @@ import 'package:coffe_counter_app/CoffeesProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
 import 'CoffeeModel.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final coffeeProvider = Provider.of<CoffeesProvider>(context);
+    final coffeeProvider = Provider.of<CoffeesProvider>(context).coffees;
+    
     return Scaffold(
       backgroundColor: Colors.brown,
       body: SafeArea(
@@ -22,13 +22,10 @@ class HomePage extends StatelessWidget {
               size: 80,
               color: Colors.white,
             ),
-            Text(
-              coffeeProvider.coffees.length == 0
-                  ? 'No hay datos'
-                  : coffeeProvider.coffees.length.toString(),
+            Text(coffeeProvider.length.toString(),
               style: TextStyle(color: Colors.white),
             ),
-            _CoffeeSizeButtonsRow()
+            _CoffeeSizeButtonsRow(),
           ],
         ),
       ),
@@ -42,6 +39,12 @@ class _CoffeeSizeButtonsRow extends StatefulWidget {
 }
 
 class __CoffeeSizeButtonsRowState extends State<_CoffeeSizeButtonsRow> {
+  @override
+  void initState() { 
+    Provider.of<CoffeesProvider>(context, listen: false).getCoffees();
+    super.initState();
+
+  }
   bool isChecked = false;
   dynamic valueItem = 'Small';
   @override
@@ -64,14 +67,13 @@ class __CoffeeSizeButtonsRowState extends State<_CoffeeSizeButtonsRow> {
           backgroundColor: Colors.white,
           child: Icon(
             Icons.plus_one,
-            color: Colors.purple,
+            color: Colors.brown,
+            size: 40,
           ),
           onPressed: () {
             String date = _getStringdate();
-            Coffee newCoffee =
-                Coffee(coffeeInt: 1, size: valueItem, date: date);
-            coffeeProvider.addCoffeeRecord(newCoffee);
-            //coffeeProvider.killDB();
+            Coffee newCoffee = Coffee(coffeeInt: 1, size: valueItem, date: date);
+            coffeeProvider.addCoffeeRecord(newCoffee); 
           },
         )
       ],

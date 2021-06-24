@@ -42,7 +42,7 @@ class DBProvider {
   Future<List<Coffee>> getAllCoffees() async {
     final db = await database;
     final response = await db.query('Coffees');
-    return response.isEmpty
+    return response.isNotEmpty
         ? response.map((coffee) => Coffee.fromJson(coffee)).toList()
         : [];
   }

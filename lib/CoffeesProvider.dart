@@ -17,7 +17,9 @@ class CoffeesProvider with ChangeNotifier {
   }
 
   void getCoffees() async {
+    print('Se llama getCoffees');
     this._coffees = await DBProvider.db.getAllCoffees();
+    print('Se devolvió el query');
     notifyListeners();
   }
 

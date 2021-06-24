@@ -12,7 +12,7 @@ class Coffee {
 
   factory Coffee.fromJson(Map<String, dynamic> json) => Coffee(
       id: json['id'],
-      coffeeInt: json["int"],
+      coffeeInt: json["entero"],
       size: json["size"],
       date: json["date"]);
   Map<String, dynamic> toJson() =>
