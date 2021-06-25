@@ -26,4 +26,13 @@ class CoffeesProvider with ChangeNotifier {
   void killDB() {
     DBProvider.db.killDataBase();
   }
+  int get smallCoffees{
+    int smallCoffees = 0;
+    for(int i = 0; i< this._coffees.length;i++){
+      if(this._coffees[i].size == 'Small'){
+        smallCoffees++;
+      }
+    }
+    return smallCoffees;
+  }
 }
