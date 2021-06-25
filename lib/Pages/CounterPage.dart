@@ -17,13 +17,53 @@ class CounterPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(width: double.infinity),
-            Icon(Icons.coffee,size: 80,color: Colors.white),
-            Text(coffeeProvider.length.toString(),style: TextStyle(color: Colors.white,fontSize: 50)),
+            _CoffeesPerSizeRow(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.coffee,size: 80,color: Colors.white),
+                Text(coffeeProvider.length.toString(),style: TextStyle(color: Colors.white,fontSize: 50)),
+              ],
+            ),
             _CoffeeSizeButtonsRow(),
           ],
         ),
       ),
       bottomNavigationBar: CustomNavigationBottomBar(),
+    );
+  }
+}
+
+class _CoffeesPerSizeRow extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final coffees = Provider.of<CoffeesProvider>(context);
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        _CoffePerSizeCounter(counter: coffees.smallCoffees,icono: Icons.coffee_outlined,size: 'Small',),
+        _CoffePerSizeCounter(counter: coffees.mediumCoffees,icono: Icons.coffee_sharp, size: 'Medium',),
+        _CoffePerSizeCounter(counter: coffees.largeCoffees,icono: Icons.coffee_maker_outlined, size: 'Large',),
+        _CoffePerSizeCounter(counter: coffees.extraLargeCoffees,icono: Icons.coffee_maker,size: 'Extra Large',),
+      ],
+    );
+  }
+}
+
+class _CoffePerSizeCounter extends StatelessWidget {
+  final int counter;
+  final IconData icono;
+  final String size;
+  _CoffePerSizeCounter({this.counter = 0, this.icono = Icons.device_unknown_sharp, this.size = ''});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(this.size, style: TextStyle(color: Colors.white),),
+        Icon(icono,size: 50, color: Colors.white,),
+        Text('$counter', style: TextStyle(color: Colors.white),)
+      ],
     );
   }
 }
