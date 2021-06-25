@@ -8,16 +8,16 @@ class CounterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final coffeeProvider = Provider.of<CoffeesProvider>(context).coffees;
-    
     return Scaffold(
       backgroundColor: Colors.brown,
       body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          //mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(width: double.infinity),
             _CoffeesPerSizeRow(),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.30,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
