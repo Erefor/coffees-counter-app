@@ -4,10 +4,11 @@ import 'package:coffe_counter_app/Utils/Utils.dart';
 import 'package:coffe_counter_app/Widgets/Widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 class CounterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final coffeeProvider = Provider.of<CoffeesProvider>(context).coffees;
+    final coffeeProvider = Provider.of<CoffeesProvider>(context);
     return Scaffold(
       backgroundColor: Colors.brown,
       body: SafeArea(
@@ -17,12 +18,15 @@ class CounterPage extends StatelessWidget {
           children: <Widget>[
             SizedBox(width: double.infinity),
             _CoffeesPerSizeRow(),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.30,),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.30,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.coffee,size: 80,color: Colors.white),
-                Text(coffeeProvider.length.toString(),style: TextStyle(color: Colors.white,fontSize: 50)),
+                Icon(coffeeProvider.getIcon, size: 80, color: Colors.white),
+                Text(coffeeProvider.coffees.length.toString(),
+                    style: TextStyle(color: Colors.white, fontSize: 50)),
               ],
             ),
             _CoffeeSizeButtonsRow(),
@@ -41,10 +45,26 @@ class _CoffeesPerSizeRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _CoffePerSizeCounter(counter: coffees.smallCoffees,icono: Icons.coffee_outlined,size: 'Small',),
-        _CoffePerSizeCounter(counter: coffees.mediumCoffees,icono: Icons.coffee_sharp, size: 'Medium',),
-        _CoffePerSizeCounter(counter: coffees.largeCoffees,icono: Icons.coffee_maker_outlined, size: 'Large',),
-        _CoffePerSizeCounter(counter: coffees.extraLargeCoffees,icono: Icons.coffee_maker,size: 'Extra Large',),
+        _CoffePerSizeCounter(
+          counter: coffees.smallCoffees,
+          icono: Icons.coffee_outlined,
+          size: 'Small',
+        ),
+        _CoffePerSizeCounter(
+          counter: coffees.mediumCoffees,
+          icono: Icons.coffee_sharp,
+          size: 'Medium',
+        ),
+        _CoffePerSizeCounter(
+          counter: coffees.largeCoffees,
+          icono: Icons.coffee_maker_outlined,
+          size: 'Large',
+        ),
+        _CoffePerSizeCounter(
+          counter: coffees.extraLargeCoffees,
+          icono: Icons.coffee_maker,
+          size: 'Extra Large',
+        ),
       ],
     );
   }
@@ -54,20 +74,22 @@ class _CoffePerSizeCounter extends StatelessWidget {
   final int counter;
   final IconData icono;
   final String size;
-  _CoffePerSizeCounter({this.counter = 0, this.icono = Icons.device_unknown_sharp, this.size = ''});
+  _CoffePerSizeCounter(
+      {this.counter = 0,
+      this.icono = Icons.device_unknown_sharp,
+      this.size = ''});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(this.size, style: TextStyle(color: Colors.white),),
-        Icon(icono,size: 50, color: Colors.white,),
-        Text('$counter', style: TextStyle(color: Colors.white),)
+        Text(this.size, style: TextStyle(color: Colors.white)),
+        Icon(icono, size: 50, color: Colors.white),
+        Text('$counter', style: TextStyle(color: Colors.white))
       ],
     );
   }
 }
-
 
 class _CoffeeSizeButtonsRow extends StatefulWidget {
   @override
@@ -76,10 +98,11 @@ class _CoffeeSizeButtonsRow extends StatefulWidget {
 
 class __CoffeeSizeButtonsRowState extends State<_CoffeeSizeButtonsRow> {
   @override
-  void initState() { 
+  void initState() {
     Provider.of<CoffeesProvider>(context, listen: false).getCoffees();
     super.initState();
   }
+
   bool isChecked = false;
   dynamic valueItem = 'Small';
   @override
@@ -96,10 +119,14 @@ class __CoffeeSizeButtonsRowState extends State<_CoffeeSizeButtonsRow> {
           onChanged: (e) {
             setState(() {
               valueItem = e;
+              coffeeProvider.setSizeIcon = e;
+              setState(() {});
             });
           },
-          alignment: Alignment.center,
-          icon: Icon(Icons.arrow_drop_down, color: Colors.white,),
+          icon: Icon(
+            Icons.arrow_drop_down,
+            color: Colors.white,
+          ),
         ),
         SizedBox(width: 20),
         FloatingActionButton(
@@ -111,8 +138,9 @@ class __CoffeeSizeButtonsRowState extends State<_CoffeeSizeButtonsRow> {
           ),
           onPressed: () {
             String date = getStringDate();
-            Coffee newCoffee = Coffee(coffeeInt: 1, size: valueItem, date: date);
-            coffeeProvider.addCoffeeRecord(newCoffee); 
+            Coffee newCoffee =
+                Coffee(coffeeInt: 1, size: valueItem, date: date);
+            coffeeProvider.addCoffeeRecord(newCoffee);
           },
         )
       ],
