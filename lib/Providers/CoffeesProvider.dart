@@ -1,5 +1,5 @@
-import 'package:coffe_counter_app/CoffeeModel.dart';
-import 'package:coffe_counter_app/DBProvider.dart';
+import 'package:coffe_counter_app/Models/CoffeeModel.dart';
+import 'package:coffe_counter_app/Providers/DBProvider.dart';
 import 'package:flutter/cupertino.dart';
 
 class CoffeesProvider with ChangeNotifier {

@@ -1,8 +1,9 @@
-import 'package:coffe_counter_app/CoffeesProvider.dart';
+import 'package:coffe_counter_app/Providers/CoffeesProvider.dart';
+import 'package:coffe_counter_app/Widgets/Widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'CoffeeModel.dart';
+import 'Models/CoffeeModel.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -29,9 +30,11 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: CustomNavigationBottomBar(),
     );
   }
 }
+
 
 class _CoffeeSizeButtonsRow extends StatefulWidget {
   @override
@@ -62,6 +65,8 @@ class __CoffeeSizeButtonsRowState extends State<_CoffeeSizeButtonsRow> {
               valueItem = e;
             });
           },
+          alignment: Alignment.center,
+          icon: Icon(Icons.arrow_drop_down, color: Colors.white,),
         ),
         FloatingActionButton(
           backgroundColor: Colors.white,

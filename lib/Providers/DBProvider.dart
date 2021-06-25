@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:coffe_counter_app/CoffeeModel.dart';
+import 'package:coffe_counter_app/Models/CoffeeModel.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
