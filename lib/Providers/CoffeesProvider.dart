@@ -44,4 +44,13 @@ class CoffeesProvider with ChangeNotifier {
     }
     return mediumCoffees;
   }
+  int get largeCoffees{
+    int largeCoffees = 0;
+    for(int i = 0; i< this._coffees.length;i++){
+      if(this._coffees[i].size == 'Large'){
+        largeCoffees++;
+      }
+    }
+    return largeCoffees;
+  }
 }
