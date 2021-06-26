@@ -13,7 +13,6 @@ class CounterPage extends StatelessWidget {
       backgroundColor: Colors.brown,
       body: SafeArea(
         child: Column(
-          //mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(width: double.infinity),
@@ -102,8 +101,6 @@ class __CoffeeSizeButtonsRowState extends State<_CoffeeSizeButtonsRow> {
     Provider.of<CoffeesProvider>(context, listen: false).getCoffees();
     super.initState();
   }
-
-  bool isChecked = false;
   dynamic valueItem = 'Small';
   @override
   Widget build(BuildContext context) {
@@ -138,8 +135,7 @@ class __CoffeeSizeButtonsRowState extends State<_CoffeeSizeButtonsRow> {
           ),
           onPressed: () {
             String date = getStringDate();
-            Coffee newCoffee =
-                Coffee(coffeeInt: 1, size: valueItem, date: date);
+            Coffee newCoffee = Coffee(coffeeInt: 1, size: valueItem, date: date);
             coffeeProvider.addCoffeeRecord(newCoffee);
           },
         )

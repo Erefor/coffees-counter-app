@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class CoffeesProvider with ChangeNotifier {
   List<Coffee> _coffees = [];
   List<Coffee> get coffees => _coffees;
-  IconData _icono = Icons.coffee_maker;
+  IconData _icono = Icons.coffee_outlined;
   void addCoffeeRecord(Coffee coffee) async {
     final newCoffee = Coffee(
         coffeeInt: coffee.coffeeInt, size: coffee.size, date: coffee.date);
@@ -18,9 +18,7 @@ class CoffeesProvider with ChangeNotifier {
   }
 
   void getCoffees() async {
-    print('Se llama getCoffees');
     this._coffees = await DBProvider.db.getAllCoffees();
-    print('Se devolvió el query');
     notifyListeners();
   }
 

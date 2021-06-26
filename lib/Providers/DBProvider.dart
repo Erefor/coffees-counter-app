@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:io';
 
 import 'package:coffe_counter_app/Models/CoffeeModel.dart';
@@ -19,7 +21,6 @@ class DBProvider {
   Future<Database> initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     final path = join(documentsDirectory.path, 'CoffeesDB.db');
-    print(path);
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
       await db.execute('''
@@ -50,7 +51,6 @@ class DBProvider {
   void killDataBase() async {
     final db = await database;
     final resp = await db.rawDelete('''DELETE FROM Coffees''');
-    print(resp);
-    print('Coffees Table deleted');
+    
   }
 }
